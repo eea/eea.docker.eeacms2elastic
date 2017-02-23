@@ -1,0 +1,14 @@
+  eeacms2elastic:
+    build: eeacms2elastic
+    volumes:
+      - csvData:/tmp/csvData #must match OUPUTDIR env
+
+    environment:
+      LOGSTASH_RW_USERNAME: "changeme"
+      LOGSTASH_RW_PASSWORD: "changeme"
+      OUTPUTDIR: "/tmp/csvData"
+      CRON_ENTRY: "*/15 * * * *"
+      DOWNLOADURL: "changeme"
+      INDEXNAME: "changeme"
+    links:
+      - elasticsearch:elasticsearch
