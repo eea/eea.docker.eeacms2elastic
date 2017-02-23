@@ -2,12 +2,11 @@
 
 set -e
 
-if [ "$LOGSTASH_RW_USERNAME" ]; then
+if [ "$RW_USERNAME" ]; then
     sed "s#RW_USERNAME#$RW_USERNAME#g" -i /root/ingest.js
     sed "s#RW_PASSWORD#$RW_PASSWORD#g" -i /root/ingest.js
     sed "s#RW_USERNAME#$RW_USERNAME#g" -i /opt/script.sh
     sed "s#RW_PASSWORD#$RW_PASSWORD#g" -i /opt/script.sh
-
 fi
 
 sed "s#INDEXNAME#$INDEXNAME#g" -i /root/ingest.js
