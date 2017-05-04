@@ -2,11 +2,14 @@
     build: eeacms2elastic
     volumes:
       - csvData:/tmp/csvData #must match OUPUTDIR env
+      - kibanaBackup:/tmp/configurationKibana #must match KIBANACONFIGURATIONBACKUP env
 
     environment:
       RW_USERNAME: "changeme"
       RW_PASSWORD: "changeme"
       OUTPUTDIR: "/tmp/csvData"
+      KIBANACONFIGURATIONDIR: "/tmp/configurationKibana"
+      RESETATSTARTUP: "NO"
       CRON_ENTRY: "*/15 * * * *"
       DOWNLOADURL: "changeme"
       INDEXNAME: "changeme"
