@@ -10,9 +10,11 @@ COPY ingestKibana.sh /opt/ingestKibana.sh
 RUN chmod a+x /opt/ingestKibana.sh
 
 RUN mkdir -p /var/spool/cron/crontabs
-COPY ingest.js /root
+COPY ingest.js /opt
 
-RUN npm install elasticsearch-csv elasticdump -g
+WORKDIR  /opt
+RUN npm install elasticsearch-csv
+RUN npm install elasticdump -g
 
 COPY docker-entrypoint.sh /
 RUN chmod a+x /docker-entrypoint.sh
