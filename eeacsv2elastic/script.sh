@@ -2,7 +2,7 @@
 
 set -e
 
-wget DOWNLOADURL -O /OUTPUTDIR/INDEXNAME.csv 
+wget --force-directories DOWNLOADURL -O /OUTPUTDIR/INDEXNAME.csv 
 
 sed "s#:text##g" -i /OUTPUTDIR/INDEXNAME.csv
 sed "s#:date##g" -i /OUTPUTDIR/INDEXNAME.csv
