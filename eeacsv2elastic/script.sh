@@ -13,9 +13,9 @@ sed "s#:number##g" -i /OUTPUTDIR/INDEXNAME.csv
 #elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/INDEXNAME --output=$ --type=analyzer | grep INDEXNAME > KIBANACONFIGURATIONDIR/INDEXNAME/analyzer.json
 #elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/INDEXNAME --output=$ --type=data | grep INDEXNAME > KIBANACONFIGURATIONDIR/INDEXNAME/data.json
 
-elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=mapping  > KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json 
-elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/kibana --output=$ --type=analyzer  > KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json
-elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=data  > KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json
+elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=mapping  > KIBANACONFIGURATIONDIR/configurationKibana/INDEXNAME/kibana_mapping.json 
+elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/kibana --output=$ --type=analyzer  > KIBANACONFIGURATIONDIR/configurationKibana/INDEXNAME/kibana_analyzer.json
+elasticdump --input=http://RW_USERNAME:RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=data  > KIBANACONFIGURATIONDIR/configurationKibana/INDEXNAME/kibana_data.json
 
 if [ -s /$OUTPUTDIR/$INDEXNAME.csv ]
 then
