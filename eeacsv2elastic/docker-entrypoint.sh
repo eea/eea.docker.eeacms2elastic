@@ -22,19 +22,21 @@ sed "s#KIBANACONFIGURATIONDIR#$KIBANACONFIGURATIONDIR#g" -i /opt/script.sh
 sed "s#KIBANACONFIGURATIONDIR#$KIBANACONFIGURATIONDIR#g" -i /opt/ingestKibana.sh
 sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/ingestKibana.sh
 
-if [ "$RESETATSTARTUP" = "YES" ]
+if [ "$RESETATSTARTUP" = "YES" ] && [ -d "$KIBANACONFIGURATIONDIR/configurationKibana" ];
 then
-    rm -rf $KIBANACONFIGURATIONDIR/$INDEXNAME
+    cd $KIBANACONFIGURATIONDIR/configurationKibana 
+    git pull
+#    rm -rf $KIBANACONFIGURATIONDIR
 fi
 
-if [ ! -d $KIBANACONFIGURATIONDIR/$INDEXNAME ]
+if [ ! -d "$KIBANACONFIGURATIONDIR/configurationKibana" ]
 then
-  git clone https://github.com/eea/eea.kibana.configs.git $KIBANACONFIGURATIONDIR
-  cd $KIBANACONFIGURATIONDIR/$INDEXNAME
+  git clone https://github.com/eea/eea.kibana.configs.git $KIBANACONFIGURATIONDIR/configurationKibana
+  cd $KIBANACONFIGURATIONDIR/configurationKibana/$INDEXNAME
 #  git checkout $INDEXNAME
 fi
 
-ls $KIBANACONFIGURATIONDIR/$INDEXNAME
+#ls $KIBANACONFIGURATIONDIR/$INDEXNAME
 
 sleep 30
 
