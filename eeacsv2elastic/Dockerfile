@@ -3,18 +3,15 @@ FROM alpine
 RUN echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --update openntpd bash wget moreutils nodejs curl git
 
-COPY script.sh /opt/script.sh
-RUN chmod a+x /opt/script.sh 
-
-COPY ingestKibana.sh /opt/ingestKibana.sh
-RUN chmod a+x /opt/ingestKibana.sh
+WORKDIR /opt
+RUN npm install elasticsearch-csv
+RUN npm install elasticdump -g
 
 RUN mkdir -p /var/spool/cron/crontabs
 COPY ingest.js /opt
 
-WORKDIR  /opt
-RUN npm install elasticsearch-csv
-RUN npm install elasticdump -g
+COPY script.sh /opt/script.sh
+RUN chmod a+x /opt/script.sh
 
 COPY docker-entrypoint.sh /
 RUN chmod a+x /docker-entrypoint.sh
