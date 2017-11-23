@@ -1,7 +1,4 @@
-FROM alpine
-
-RUN echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-RUN apk add --update openntpd bash wget moreutils nodejs curl git
+FROM node:6.12.0-alpine
 
 WORKDIR /opt
 RUN npm install elasticsearch-csv
