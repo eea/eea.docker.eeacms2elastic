@@ -21,7 +21,7 @@ sed "s#:number##g" -i /$OUTPUTDIR/INDEXNAME.csv
 if [ -s "/$OUTPUTDIR/INDEXNAME.csv" ]
 then
     echo "deleting index INDEXNAME"
-    curl -k --user $RW_USERNAME:$RW_PASSWORD -XPOST 'https://elasticsearch:9200/INDEXNAME/logs/_delete_by_query?conflicts=proceed&pretty' -d'{ "query": { "match_all": {} } }'
+    curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD -XPOST 'https://elasticsearch:9200/INDEXNAME/logs/_delete_by_query?conflicts=proceed&pretty' -d'{ "query": { "match_all": {} } }'
     node /opt/ingest.js
     echo "index INDEXNAME deleted"
 else

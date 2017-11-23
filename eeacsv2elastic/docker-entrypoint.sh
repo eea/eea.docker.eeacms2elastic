@@ -5,8 +5,8 @@ set -e
 sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/ingest.js
 sed "s#OUTPUTDIR#$OUTPUTDIR#g" -i /opt/ingest.js
 
-sed "s#RW_USERNAME#$RW_USERNAME#g" -i /opt/ingest.js
-sed "s#RW_PASSWORD#$RW_PASSWORD#g" -i /opt/ingest.js
+sed "s#LOGSTASH_RW_USERNAME#$LOGSTASH_RW_USERNAME#g" -i /opt/ingest.js
+sed "s#LOGSTASH_RW_PASSWORD#$LOGSTASH_RW_PASSWORD#g" -i /opt/ingest.js
 
 sed "s#DELIMITER#$DELIMITER#g" -i /opt/ingest.js
 
@@ -26,9 +26,9 @@ then
   git clone https://github.com/eea/eea.kibana.configs.git /eea.kibana.configs
   if [ -d "/eea.kibana.configs/$INDEXNAME" ];
     then
-      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_mapping.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
-      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_analyzer.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
-      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_data.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_mapping.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_analyzer.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_data.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana
   fi
 else
   cd /eea.kibana.configs
