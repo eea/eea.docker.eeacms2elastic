@@ -11,29 +11,26 @@ sed "s#RW_PASSWORD#$RW_PASSWORD#g" -i /opt/ingest.js
 sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/script.sh
 
 counter=0
-while [ ! "$(curl http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200 2> /dev/null)" -a $counter -lt 100  ]; do
-  sleep 1
+while [ ! "$(curl -k https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200 2> /dev/null)" -a $counter -lt 100  ]; do
+  sleep 5
   let counter=counter+1
   echo "waiting for Elasticsearch to be up ($counter/100)"
 done
 
-if [ "$RESETATSTARTUP" = "YES" ] || [ ! -d "/configurationKibana/eea.kibana.configs" ];
+sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/script.sh
+
+if [ "$RESETATSTARTUP" = "YES" ] || [ ! -d "/eea.kibana.configs" ];
 then
   git clone https://github.com/eea/eea.kibana.configs.git /eea.kibana.configs
   if [ -d "/eea.kibana.configs/$INDEXNAME" ];
     then
-      elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_mapping.json --output=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
-      elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_analyzer.json --output=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
-      elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_data.json --output=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_mapping.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_analyzer.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
+      NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=/eea.kibana.configs/$INDEXNAME/kibana_data.json --output=https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana
   fi
 else
-  cd /configurationKibana/eea.kibana.configs
+  cd /eea.kibana.configs
   git pull
-fi
-
-if [ ! -d "/$KIBANACONFIGURATIONDIR/$INDEXNAME" ];
-  then
-    mkdir -p /$KIBANACONFIGURATIONDIR/$INDEXNAME
 fi
 
 sh /opt/script.sh

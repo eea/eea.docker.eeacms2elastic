@@ -3,6 +3,7 @@
 set -e
 
 mkdir -p /$OUTPUTDIR
+
 export TESTZIP=$(echo $DOWNLOADURL | grep gz)
 if [ -z "$TESTZIP" ]
   wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv 
@@ -28,8 +29,9 @@ export TESTKIBANAINDEX=$(curl --user $RW_USERNAME:$RW_PASSWORD -s 'http://elasti
 
 if [ ! -z "$TESTKIBANAINDEX" ]
 then
-  elasticdump --input=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=mapping   > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json
-  elasticdump --input=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=analyzer  > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json
-  elasticdump --input=http://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=data      > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json
+  mkdir -p /$KIBANACONFIGURATIONDIR/INDEXNAME
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=mapping   > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=analyzer  > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana --output=$ --type=data      > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json
 fi
 export TESTKIBANAINDEX=''
