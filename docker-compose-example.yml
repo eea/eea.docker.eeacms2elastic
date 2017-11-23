@@ -5,8 +5,8 @@
       - kibanaBackup:/tmp/configurationKibana #must match KIBANACONFIGURATIONBACKUP env
 
     environment:
-      RW_USERNAME: "changeme"
-      RW_PASSWORD: "changeme"
+      LOGSTASH_RW_USERNAME: "changeme"
+      LOGSTASH_RW_PASSWORD: "changeme"
       OUTPUTDIR: "/tmp/csvData"
       KIBANACONFIGURATIONDIR: "/tmp/configurationKibana"
       RESETATSTARTUP: "NO"

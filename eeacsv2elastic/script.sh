@@ -23,6 +23,7 @@ then
     echo "deleting index INDEXNAME"
     curl -k --user $RW_USERNAME:$RW_PASSWORD -XPOST 'https://elasticsearch:9200/INDEXNAME/logs/_delete_by_query?conflicts=proceed&pretty' -d'{ "query": { "match_all": {} } }'
     node /opt/ingest.js
+    echo "index INDEXNAME deleted"
 else
     echo "File empty"
 fi
