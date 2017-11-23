@@ -4,7 +4,7 @@ set -e
 
 mkdir -p /$OUTPUTDIR
 
-export RANDOMNUMBER=$(shuf -i 25-200 -n 1)
+export RANDOMNUMBER=$(shuf -i 1-500 -n 1)
 export TESTZIP=$(echo $DOWNLOADURL | grep gz)
 if [ -z "$TESTZIP" ]
 then
@@ -21,11 +21,11 @@ sed "s#:number##g" -i /$OUTPUTDIR/INDEXNAME.csv
 
 if [ -s "/$OUTPUTDIR/INDEXNAME.csv" ]
 then
+    echo "waiting $RANDOMNUMBER seconds"
+    sleep $RANDOMNUMBER
     echo "deleting index INDEXNAME"
     curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD -XPOST 'https://elasticsearch:9200/INDEXNAME/logs/_delete_by_query?conflicts=proceed&pretty' -d'{ "query": { "match_all": {} } }'
     echo "index INDEXNAME deleted"
-    echo "waiting $RANDOMNUMBER seconds"
-    sleep $RANDOMNUMBER
     echo "ingesting data to INDEXNAME"
     node /opt/ingest.js
     echo "done"
