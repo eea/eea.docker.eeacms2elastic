@@ -6,6 +6,7 @@ mkdir -p /$OUTPUTDIR
 
 export TESTZIP=$(echo $DOWNLOADURL | grep gz)
 if [ -z "$TESTZIP" ]
+then
   wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv 
 else
   wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv.gz
