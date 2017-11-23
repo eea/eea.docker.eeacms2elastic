@@ -1,4 +1,4 @@
-FROM node:6.12.0-alpine
+FROM node:6.12.0
 
 WORKDIR /opt
 RUN npm install elasticsearch-csv
