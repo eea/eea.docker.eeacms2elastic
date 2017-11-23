@@ -8,6 +8,8 @@ sed "s#OUTPUTDIR#$OUTPUTDIR#g" -i /opt/ingest.js
 sed "s#RW_USERNAME#$RW_USERNAME#g" -i /opt/ingest.js
 sed "s#RW_PASSWORD#$RW_PASSWORD#g" -i /opt/ingest.js
 
+sed "s#DELIMITER#$DELIMITER#g" -i /opt/ingest.js
+
 sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/script.sh
 
 counter=0

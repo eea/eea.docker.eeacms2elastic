@@ -13,5 +13,6 @@
       CRON_ENTRY: "*/15 * * * *"
       DOWNLOADURL: "changeme"
       INDEXNAME: "changeme"
+      DELIMITER: ";"
     links:
       - elasticsearch:elasticsearch

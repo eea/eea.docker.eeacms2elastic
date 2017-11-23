@@ -2,8 +2,8 @@ var ElasticsearchCSV = require('elasticsearch-csv');
 
 // create an instance of the importer with options
 var esCSV = new ElasticsearchCSV({
-    es: { index: 'INDEXNAME', type: 'logs', host: 'RW_USERNAME:RW_PASSWORD@elasticsearch:9200' },
-    csv: { filePath: '/OUTPUTDIR/INDEXNAME.csv', headers: true }
+    es: { index: 'INDEXNAME', type: 'logs', host: 'https://RW_USERNAME:RW_PASSWORD@elasticsearch:9200' },
+    csv: { filePath: '/OUTPUTDIR/INDEXNAME.csv', headers: true, delimiter: 'DELIMITER'}
 });
 
 esCSV.import()

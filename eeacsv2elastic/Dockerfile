@@ -1,6 +1,14 @@
-FROM node:6.12.0
+FROM alpine
+
+RUN apk add --update git unzip openntpd openjdk8-jre bash nodejs curl git nodejs-npm
+
+#FROM node:6.12.0
 
 WORKDIR /opt
+
+#RUN apt-get update -y
+#RUN apt-get install -y vim openntpd wget curl git cron cronutils 
+
 RUN npm install elasticsearch-csv
 RUN npm install elasticdump -g
 
