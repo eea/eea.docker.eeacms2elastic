@@ -3,7 +3,13 @@
 set -e
 
 mkdir -p /$OUTPUTDIR
-wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv 
+export TESTZIP=$(echo $DOWNLOADURL | grep gz)
+if [ -z "$TESTZIP" ]
+  wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv 
+else
+  wget $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv.gz
+  gzip -d /$OUTPUTDIR/INDEXNAME.csv.gz
+fi
 
 sed "s#:text##g"   -i /$OUTPUTDIR/INDEXNAME.csv
 sed "s#:date##g"   -i /$OUTPUTDIR/INDEXNAME.csv
