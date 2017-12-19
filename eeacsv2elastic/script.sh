@@ -6,12 +6,12 @@ mkdir -p /$OUTPUTDIR
 
 export RANDOMNUMBER=$(shuf -i 1-500 -n 1)
 export TESTZIP=$(echo $DOWNLOADURL | grep gz)
-if [ -z "$TESTZIP" ]
+if [[ ! -z "$TESTZIP" ]]
 then
-  wget -q $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv 
-else
   wget -q $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv.gz
   gzip -f -d /$OUTPUTDIR/INDEXNAME.csv.gz
+else
+  wget -q $DOWNLOADURL -O /$OUTPUTDIR/INDEXNAME.csv
 fi
 
 sed "s#:text##g"   -i /$OUTPUTDIR/INDEXNAME.csv
