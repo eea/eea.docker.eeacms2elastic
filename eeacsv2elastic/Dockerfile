@@ -6,10 +6,10 @@ RUN apk add --update git unzip openntpd openjdk8-jre bash nodejs curl git nodejs
 
 WORKDIR /opt
 
-#RUN apt-get update -y
-#RUN apt-get install -y vim openntpd wget curl git cron cronutils 
+ADD elasticsearch-csv /elasticsearch-csv
+RUN cd /elasticsearch-csv && npm install -g
 
-RUN npm install elasticsearch-csv
+#RUN npm install elasticsearch-csv
 RUN npm install elasticdump -g
 
 RUN mkdir -p /var/spool/cron/crontabs
