@@ -2,8 +2,6 @@ FROM alpine
 
 RUN apk add --update git unzip openntpd openjdk8-jre bash nodejs curl git nodejs-npm
 
-#FROM node:6.12.0
-
 WORKDIR /opt
 
 ADD elasticsearch-csv /elasticsearch-csv
