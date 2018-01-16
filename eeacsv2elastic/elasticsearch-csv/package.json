@@ -1,0 +1,55 @@
+{
+  "name": "elasticsearch-csv",
+  "version": "0.0.4",
+  "description": "A simple Elasticsearch CSV importer",
+  "dependencies": {
+    "bluebird": "3.5.1",
+    "elasticsearch": "14.0.0",
+    "fast-csv": "2.4.1",
+    "lodash": "4.17.4",
+    "uuid": "3.1.0"
+  },
+  "devDependencies": {
+    "coveralls": "2.11.9",
+    "david": "7.0.2",
+    "grunt-cli": "1.2.0",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-mocha-istanbul": "5.0.1",
+    "grunt-mocha-test": "0.12.7",
+    "istanbul": "0.4.4",
+    "mocha": "2.5.3",
+    "mocha-junit-reporter": "1.11.1",
+    "should": "9.0.2",
+    "sinon": "1.17.4"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt",
+    "posttest": "david || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertstettner/elasticsearch-csv.git"
+  },
+  "keywords": [
+    "csv",
+    "elasticsearch",
+    "elastic",
+    "import",
+    "importer",
+    "csv import",
+    "CSV"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "author": "Robert Stettner <robert.stettner@gmail.com> (https://github.com/robertstettner)",
+  "contributors": [
+    "Raúl Requero <rareq1987@gmail.com> (https://github.com/rrequero)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robertstettner/elasticsearch-csv/issues"
+  },
+  "homepage": "https://github.com/robertstettner/elasticsearch-csv"
+}
