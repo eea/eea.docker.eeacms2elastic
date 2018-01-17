@@ -30,7 +30,7 @@ else
     echo "file is empty"
 fi
 
-export TESTKIBANAINDEX=$(curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD -XPOST -H'Content-Type: application/json' -s 'https://elasticsearch:9200/_cat/indices?' | grep .kibana)
+export TESTKIBANAINDEX=$(curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD -s 'https://elasticsearch:9200/_cat/indices?' | grep .kibana)
 
 if [[ ! -z "$TESTKIBANAINDEX" ]]
 then
