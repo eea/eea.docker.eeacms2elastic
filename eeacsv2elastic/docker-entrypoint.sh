@@ -21,6 +21,7 @@ done
 
 if [[ "$RESETATSTARTUP" = "YES" ]] || [[ ! -d "/eea.kibana.configs" ]];
 then
+  rm -rf /eea.kibana.configs
   git clone https://github.com/eea/eea.kibana.configs.git /eea.kibana.configs
   if [[ -d "/eea.kibana.configs/$INDEXNAME" ]];
     then
