@@ -35,6 +35,7 @@ export TESTKIBANAINDEX=$(curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSW
 if [[ ! -z "$TESTKIBANAINDEX" ]]
 then
   mkdir -p /$KIBANACONFIGURATIONDIR/INDEXNAME
+  rm /$KIBANACONFIGURATIONDIR/INDEXNAME/*.json
   NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json --type=mapping
   NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json --type=analyzer
   NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json --type=data
