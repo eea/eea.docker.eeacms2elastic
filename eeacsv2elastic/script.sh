@@ -35,8 +35,8 @@ export TESTKIBANAINDEX=$(curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSW
 if [[ ! -z "$TESTKIBANAINDEX" ]]
 then
   mkdir -p /$KIBANACONFIGURATIONDIR/INDEXNAME
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=mapping   > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=analyzer  > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=data      > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump -XPOST -H'Content-Type: application/json' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=mapping   > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump -XPOST -H'Content-Type: application/json' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=analyzer  > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump -XPOST -H'Content-Type: application/json' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=$ --type=data      > /$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json
 fi
 export TESTKIBANAINDEX=''
