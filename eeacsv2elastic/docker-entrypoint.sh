@@ -13,7 +13,7 @@ sed "s#INDEXNAME#$INDEXNAME#g" -i /opt/script.sh
 
 counter=0
 #while [ ! "$(curl -k http://$RW_USERNAME:$RW_PASSWORD@localhost:9200 2> /dev/null)" -a $counter -lt 100 ]; do
-while [ ! "$(curl -k --headers='{"Content-Type": "application/json"}' https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200 2> /dev/null)" -a $counter -lt 100  ]; do
+while [ ! "$(curl -k https://$RW_USERNAME:$RW_PASSWORD@elasticsearch:9200 2> /dev/null)" -a $counter -lt 100  ]; do
   sleep 5
   let counter=counter+1
   echo "waiting for Elasticsearch to be up ($counter/100)"
