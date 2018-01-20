@@ -24,7 +24,7 @@ then
     curl -k --user $LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD -XPOST -H'Content-Type: application/json' 'https://elasticsearch:9200/INDEXNAME/logs/_delete_by_query?conflicts=proceed&pretty' -d'{ "query": { "match_all": {} } }'
     echo "index INDEXNAME deleted"
     echo "ingesting data into INDEXNAME index "
-    node /opt/ingest.js
+    node /opt/ingestData.js
     echo "ingesting done"
 else
     echo "file is empty"
@@ -36,8 +36,8 @@ if [[ ! -z "$TESTKIBANAINDEX" ]]
 then
   rm -rf /$KIBANACONFIGURATIONDIR/INDEXNAME
   mkdir -p /$KIBANACONFIGURATIONDIR/INDEXNAME
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json --type=mapping
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json --type=analyzer
-  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200/.kibana" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json --type=data
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input-index=.kibana --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_mapping.json --type=mapping
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input-index=.kibana --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_analyzer.json --type=analyzer
+  NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --input-index=.kibana --headers='{"Content-Type": "application/json"}' --input="https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200" --output=/$KIBANACONFIGURATIONDIR/INDEXNAME/kibana_data.json --type=data
 fi
-export TESTKIBANAINDEX=''
+

@@ -11,14 +11,14 @@ RUN cd /elasticsearch-csv && npm install -g
 RUN npm install elasticdump -g
 
 RUN mkdir -p /var/spool/cron/crontabs
-COPY ingest.js /opt
 
-COPY script.sh /opt/script.sh
-RUN chmod a+x /opt/script.sh
-
+COPY ingestData.js /opt/ingestData.js
+COPY ingestConfiguration.sh /opt/ingestConfiguration.sh
+COPY ingestData.sh /opt/ingestData.sh
 COPY docker-entrypoint.sh /
-RUN chmod a+x /docker-entrypoint.sh
+
+RUN chmod a+x /opt/ingestData.sh /opt/ingestConfiguration.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD ntpd -p pool.ntp.org && echo "$CRON_ENTRY" /opt/script.sh | crontab - && crond -f
+CMD ntpd -p pool.ntp.org && echo "$CRON_ENTRY" /opt/ingestData.sh | crontab - && crond -f
