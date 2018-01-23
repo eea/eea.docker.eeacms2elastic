@@ -22,10 +22,7 @@ then
   if [[ -d "/eea.kibana.configs/$INDEXNAME" ]];
     then
       echo "folder /eea.kibana.configs/$INDEXNAME found, importing the dashboard"
-      sh /opt/ingestKibana.sh
-      #NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --output-index=.kibana --headers='{"Content-Type": "application/json"}' --input=/eea.kibana.configs/$INDEXNAME/kibana_mapping.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200
-      #NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --output-index=.kibana --headers='{"Content-Type": "application/json"}' --input=/eea.kibana.configs/$INDEXNAME/kibana_analyzer.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200
-      #NODE_TLS_REJECT_UNAUTHORIZED=0 elasticdump --output-index=.kibana --headers='{"Content-Type": "application/json"}' --input=/eea.kibana.configs/$INDEXNAME/kibana_data.json --output=https://$LOGSTASH_RW_USERNAME:$LOGSTASH_RW_PASSWORD@elasticsearch:9200
+      sh /opt/ingestConfiguration.sh
   fi
 else
   cd /eea.kibana.configs
